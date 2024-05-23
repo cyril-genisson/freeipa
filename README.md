@@ -1,0 +1,2 @@
+# freeipa
+FreeIPA configuration
