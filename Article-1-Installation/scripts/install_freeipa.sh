@@ -53,7 +53,7 @@ ipa-server-install --skip-mem-check --unattended \
 --admin-password=$ADMIN_PASSWD \
 --realm="$REALM" \
 --netbios-name="$NETBIOS" \
---hostname=$HOSTNAME\
+--hostname=$HOSTNAME \
 --setup-kra \
 --setup-dns \
 --mkhomedir \
