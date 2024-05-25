@@ -34,7 +34,7 @@ nmcli con down "$CONNECTION" &&
 nmcli con del "$CONNECTION" &&
 nmcli con add con-name $CON_IPA ifname "$DEVICE" type ethernet &&
 nmcli con modify $CON_IPA ipv4.method manual ipv4.addresses $IP_ADDR ipv4.gateway $GATEWAY &&
-nmcli con modify $CON_IPA ipv4.dns "$DNS1" "$DNS2" &&
+nmcli con modify $CON_IPA ipv4.dns "$DNS1 $DNS2" &&
 nmcli con modify $CON_IPA ipv4.dns-search $ZONE &&
 nmcli con modify $CON_IPA ipv6.method "disable" &&
 nmcli con up $CON_IPA &&
