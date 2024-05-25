@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Variables de configuration pour FreeIPA
 # A MODIFIER EN FONCTION DES BESOINS
