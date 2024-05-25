@@ -36,8 +36,7 @@ nmcli con add con-name $CON_IPA ifname "$DEVICE" type ethernet &&
 nmcli con modify $CON_IPA ipv4.method manual ipv4.addresses $IP_ADDR ipv4.gateway $GATEWAY &&
 nmcli con modify $CON_IPA ipv4.dns "$DNS1 $DNS2" &&
 nmcli con modify $CON_IPA ipv4.dns-search $ZONE &&
-nmcli con modify $CON_IPA ipv6.method "disable" &&
-nmcli con up $CON_IPA &&
+nmcli con modify $CON_IPA ipv6.method disabled autoconnect yes 
 
 # Configuration du pare-feux
 firewall-cmd --permanent --add-service={freeipa-4,freeipa-replication,dns,ntp} &&
@@ -45,8 +44,10 @@ firewall-cmd --reload &&
 
 # Autorise les clients du réseau à l'accès du serveur de temps
 # sur le réseau local
-sed -i -r 's/^#allow.*/allow\ 192.168.122.0\/24/g' /etc/chrony.conf &&
-systemctl restart chronyd &&
+sed -i 's/^#allow.*/allow\ 192.168.122.0\/24/g' /etc/chrony.conf 
+sed -i 's/^#local\ str.*/local\ stratum\ 8/' /etc/chrony.conf 
+sed -i 's/^pool.*/#&/' /etc/chrony.conf &&
+systemctl restart chronyd 
 
 ipa-server-install --skip-mem-check --unattended \
 --ds-password=$DIRECTORY_PASSWD \
