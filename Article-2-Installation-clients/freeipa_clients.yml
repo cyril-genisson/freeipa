@@ -1,0 +1,31 @@
+---
+- name: Install and Configure FreeIPA_clients 
+  hosts: all
+  gather_facts: false
+  vars:
+    ipa_server: 
+    ipa_domain:
+    ipa_realm:
+    ipa_admin_user:
+    ipa_admin_password:
+  collections: 
+  - ansible.builtin
+  tasks:
+  - name: Install FreeIPA clients package
+    dnf:
+      name: ipa-client
+      state: present
+  - name: Configure freeIPA clients
+    command: >
+      ipa-client-install 
+      --domain={{ ipa_domain }}
+      --server={{ ipa_server }}
+      --realm={{ ipa_realm }}
+      --principal={{ ipa_admin_user }}
+      --pasword={{ ipa_admin_password }}
+      --mkhomedir 
+      --unattended 
+    register: ipa_client_install
+  - name: verify IPA clients Installation
+    debug:
+      msg: "IPA client install result: {{ ipa_client_install.stdout }}"
