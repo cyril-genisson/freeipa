@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Variables de configuration pour FreeIPA
 # A MODIFIER EN FONCTION DES BESOINS
@@ -44,10 +44,8 @@ firewall-cmd --reload &&
 
 # Autorise les clients du réseau à l'accès du serveur de temps
 # sur le réseau local
-sed -i 's/^#allow.*/allow\ 192.168.122.0\/24/g' /etc/chrony.conf 
-sed -i 's/^#local\ str.*/local\ stratum\ 8/' /etc/chrony.conf 
-sed -i 's/^pool.*/#&/' /etc/chrony.conf &&
-systemctl restart chronyd 
+sed -i 's/^#allow.*/allow\ 192.168.122.0\/24/g' /etc/chrony.conf &&
+systemctl restart chronyd &&
 
 ipa-server-install --skip-mem-check --unattended \
 --ds-password=$DIRECTORY_PASSWD \
